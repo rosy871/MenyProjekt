@@ -8,7 +8,8 @@ namespace MenyProjekt
         {
             int ch;
             mainMenu();
-            
+            bool tocontinue = true;
+
 
             do
             {
@@ -18,8 +19,10 @@ namespace MenyProjekt
                 {
                     case 0:
                         Console.WriteLine("avslutnings....");
+                        tocontinue = false;
                         break;
                     case 1:
+                      
                         movie();
                         mainMenu();
                         break;
@@ -34,32 +37,60 @@ namespace MenyProjekt
                     default:
                         Console.WriteLine("felaktig input.. Tryck igen: ");
                         break;
-
-
                 }
-            } while (ch != 0);
+            } while (tocontinue==true);
         }
 
+        //case 3 method
         private static void showThirdword()
         {
             Console.WriteLine("ange en mening med minst 3 ord");
             string sentence = Console.ReadLine();
             string[] words = sentence.Split(' ');
-            
-            Console.WriteLine("third word is: {0}",words[2]);
+            if(words.Length<3)
+                Console.WriteLine("meningen är för kort");
+            else
+            Console.WriteLine("Det tredje ordet är : ' {0} '\n", words[2]);
         }
 
+        //case 2 method
         private static void repeatTen()
         {
             Console.WriteLine("ange en text som du vill upprepa");
             string txt = Console.ReadLine();
+           
+            if (string.IsNullOrEmpty(txt))
+            {
+
+                Console.WriteLine("Empty text... ange en text");
+                txt = Console.ReadLine();
+            }
+           
             for (int i = 0; i < 10; i++)
             {
                 Console.Write("{0}.{1} ",i+1,txt);
             }
+
+            Console.WriteLine("\n");
         }
 
+        //case  1 methods
         private static void movie()
+        {
+         
+            try
+            {
+                calculateTotal();
+                   
+            }
+            catch (FormatException )            {
+             
+                Console.WriteLine("fel typ.. tryck correct value");
+                calculateTotal();
+            }
+        }
+
+        private static void calculateTotal()
         {
             int sum = 0;
             Console.WriteLine("ange antal personer");
@@ -70,7 +101,8 @@ namespace MenyProjekt
                 int age = Int32.Parse(Console.ReadLine());
                 if (age < 20)
                 {
-                    if(age<5){
+                    if (age < 5)
+                    {
                         Console.WriteLine(" gratis");
                         sum += 0;
                     }
@@ -83,13 +115,13 @@ namespace MenyProjekt
                 else if (age >= 20 && age <= 64)
                 {
                     Console.WriteLine("Standardpris: 120kr");
-                   
+
                     sum += 120;
 
                 }
                 else
                 {
-                    if(age>100)
+                    if (age > 100)
                     {
                         Console.WriteLine(" gratis");
                         sum += 0;
@@ -99,15 +131,16 @@ namespace MenyProjekt
                         Console.WriteLine("Pensionärpris: 90kr");
                         sum += 90;
                     }
-                   
+
 
                 }
 
             }
-            Console.WriteLine("\nTotalkostnad: {0}", sum);
-
+            Console.WriteLine("\nTotalkostnad: {0}\n", sum);
         }
 
+
+        //main menu method
         private static void mainMenu()
         {
             Console.WriteLine("\n--------------------------");
