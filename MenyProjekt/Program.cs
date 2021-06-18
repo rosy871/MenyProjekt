@@ -6,39 +6,38 @@ namespace MenyProjekt
     {
         static void Main(string[] args)
         {
-            int ch;
-            mainMenu();
-            bool tocontinue = true;
-
-
+                menuOption();
+        }
+           
+        private static void menuOption()
+        {
             do
             {
+                mainMenu();
 
-               ch = Convert.ToInt32(Console.ReadLine());
-                switch (ch)
+                switch (Console.ReadLine())
                 {
-                    case 0:
-                        Console.WriteLine("avslutnings....");
-                        tocontinue = false;
+                    case "0":
+                        Environment.Exit(0);
                         break;
-                    case 1:
-                      
+
+                    case "1":
                         movie();
-                        mainMenu();
-                        break;
-                    case 2:
+                         break;
+
+                    case "2":
                         repeatTen();
-                        mainMenu();
                         break;
-                    case 3:
+                      
+                    case "3":
                         showThirdword();
-                        mainMenu();
                         break;
+                       
                     default:
                         Console.WriteLine("felaktig input.. Tryck igen: ");
                         break;
                 }
-            } while (tocontinue==true);
+            } while (true);
         }
 
         //case 3 method
@@ -46,8 +45,9 @@ namespace MenyProjekt
         {
             Console.WriteLine("ange en mening med minst 3 ord");
             string sentence = Console.ReadLine();
-            string[] words = sentence.Split(' ');
-            if(words.Length<3)
+            string[] words = sentence.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+      
+            if (words.Length<3)
                 Console.WriteLine("meningen är för kort");
             else
             Console.WriteLine("Det tredje ordet är : ' {0} '\n", words[2]);
@@ -81,29 +81,30 @@ namespace MenyProjekt
             try
             {
                 calculateTotal();
-                   
             }
-            catch (FormatException )            {
-             
+            catch (FormatException )     
+            {
                 Console.WriteLine("fel typ.. tryck correct value");
                 calculateTotal();
             }
+             
         }
+                  
 
         private static void calculateTotal()
         {
             int sum = 0;
-            Console.WriteLine("ange antal personer");
+            Console.WriteLine("Ange antal personer");
             int noOfPerson = Int32.Parse(Console.ReadLine());
             for (int i = 0; i < noOfPerson; i++)
             {
-                Console.WriteLine("ange ålder:");
+                Console.WriteLine("Ange ålder:");
                 int age = Int32.Parse(Console.ReadLine());
                 if (age < 20)
                 {
                     if (age < 5)
                     {
-                        Console.WriteLine(" gratis");
+                        Console.WriteLine(" Gratis ");
                         sum += 0;
                     }
                     else
@@ -153,3 +154,7 @@ namespace MenyProjekt
         }
     }
 }
+
+                  
+                              
+           
